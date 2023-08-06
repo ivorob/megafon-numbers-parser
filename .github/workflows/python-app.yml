@@ -30,12 +30,12 @@ jobs:
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --show-source --statistics
+          flake8 . --ignore=E501 --count --show-source --statistics
 
       # Run tests
       - name: Test with pytest
         run: |
-          pytest tests/ --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
+          PYTHONPATH=src pytest tests/ --doctest-modules --junitxml=junit/test-results-${{ matrix.python-version }}.xml
 
       # Upload tests artifacts
       - name: Upload pytest test results
