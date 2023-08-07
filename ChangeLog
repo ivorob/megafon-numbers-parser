@@ -1,6 +1,9 @@
 CHANGES
 =======
 
+* Parse command line for console app
+* Add requests module to dependencies
+* Add parsing of data
 * Create README.md
 * Add AUTHORS info and .gitignore
 * Add setup files

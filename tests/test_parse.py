@@ -61,6 +61,7 @@ def test_parsing_numbers_is_succeeded():
 
     # Assert
     assert isinstance(numbers, list)
+    assert all(isinstance(number, str) for number in numbers)
     assert isPhoneNumbers(numbers)
 
 

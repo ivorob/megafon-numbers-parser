@@ -27,8 +27,8 @@ class NumbersRequest():
         if content.get('success', False):
             numbers = []
             for payload in content.get('payload', []):
-                numbers.append(
-                    [phone['number'] for phone in payload.get('numbers', []) if 'number' in phone]
+                numbers.extend(
+                    phone['number'] for phone in payload.get('numbers', []) if 'number' in phone
                 )
 
             return numbers
