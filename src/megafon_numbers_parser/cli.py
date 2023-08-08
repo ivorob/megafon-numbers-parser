@@ -14,13 +14,10 @@ def run():
     numbersParser = NumbersRequest('https://nn.shop.megafon.ru/public-api/number-selection/fullnumber')
     phones = numbersParser.obtain()
 
-    result = []
     for phone in phones:
         uniqueNumbers = set(phone)
         if len(uniqueNumbers) <= args.maxNumbers:
-            result.append(phone)
-
-    print(result)
+            print(phone)
 
 
 if __name__ == '__main__':
