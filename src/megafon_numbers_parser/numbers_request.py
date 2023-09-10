@@ -14,7 +14,7 @@ class NumbersRequest():
         self.limit = limit
 
     def obtain(self):
-        response = requests.post(self.url, data={"offset": self.offset, "limit": self.limit})
+        response = requests.get(self.url, params={"offset": self.offset, "limit": self.limit})
         if response:
             if response.status_code == 404:
                 raise NumbersUrlNotFound("{} returns 404 error code".format(self.url))
@@ -24,13 +24,10 @@ class NumbersRequest():
         return []
 
     def _parseContent(self, content):
-        if content.get('success', False):
-            numbers = []
-            for payload in content.get('payload', []):
-                numbers.extend(
-                    phone['number'] for phone in payload.get('numbers', []) if 'number' in phone
-                )
+        numbers = []
+        for payload in content.get('numbers', []):
+            numbers.extend(
+                phone for phone in payload.get('phones', [])
+            )
 
-            return numbers
-
-        return []
+        return numbers

@@ -11,11 +11,11 @@ def run():
                         type=int)
     args = parser.parse_args()
 
-    numbersParser = NumbersRequest('https://nn.shop.megafon.ru/public-api/number-selection/fullnumber')
+    numbersParser = NumbersRequest('https://api.shop.megafon.ru/number/356/allNumbers')
     phones = numbersParser.obtain()
 
     for phone in phones:
-        uniqueNumbers = set(phone)
+        uniqueNumbers = set(str(phone))
         if len(uniqueNumbers) <= args.maxNumbers:
             print(phone)
 
