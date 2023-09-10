@@ -27,7 +27,7 @@ class NumbersRequest():
         numbers = []
         for payload in content.get('numbers', []):
             numbers.extend(
-                phone for phone in payload.get('phones', [])
+                str(phone) for phone in payload.get('phones', [])
             )
 
         return numbers

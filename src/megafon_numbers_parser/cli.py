@@ -15,7 +15,7 @@ def run():
     phones = numbersParser.obtain()
 
     for phone in phones:
-        uniqueNumbers = set(str(phone))
+        uniqueNumbers = set(phone)
         if len(uniqueNumbers) <= args.maxNumbers:
             print(phone)
 

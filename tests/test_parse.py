@@ -19,18 +19,18 @@ def isPhoneNumbers(numbers):
     return True
 
 
-def getFakePost(statusCode, content):
+def getFakeGet(statusCode, content):
     m = mock.Mock()
     m.status_code = statusCode
     m.content = content
 
-    def getFakeContent(url, data):
+    def getFakeContent(url, params):
         return m
 
     return getFakeContent
 
 
-@mock.patch('requests.post', getFakePost(404, 'Not found'))
+@mock.patch('requests.get', getFakeGet(404, 'Not found'))
 def test_page_not_found():
     # Arrange
     numbersRequest = NumbersRequest('https://nn.shop.megafon.ru/public-api/number-selection/fullnumber')
@@ -51,7 +51,7 @@ def test_page_not_found():
     assert errorMessage == 'https://nn.shop.megafon.ru/public-api/number-selection/fullnumber returns 404 error code'
 
 
-@mock.patch('requests.post', getFakePost(200, readFile('tests/data/numbers.json')))
+@mock.patch('requests.get', getFakeGet(200, readFile('tests/data/numbers.json')))
 def test_parsing_numbers_is_succeeded():
     # Arrange
     numbersRequest = NumbersRequest('https://nn.shop.megafon.ru/public-api/number-selection/fullnumber')
@@ -65,7 +65,7 @@ def test_parsing_numbers_is_succeeded():
     assert isPhoneNumbers(numbers)
 
 
-@mock.patch('requests.post', getFakePost(200, readFile('tests/data/invalidJson.txt')))
+@mock.patch('requests.get', getFakeGet(200, readFile('tests/data/invalidJson.txt')))
 def test_parsing_invalid_json_raise_error():
     # Arrange
     numbersRequest = NumbersRequest('https://nn.shop.megafon.ru/public-api/number-selection/fullnumber')
